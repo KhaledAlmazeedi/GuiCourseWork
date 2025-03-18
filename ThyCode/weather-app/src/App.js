@@ -10,12 +10,7 @@ function App() {
   return (
     <Router>
       <div className="app-container">
-        <nav>
-          <Link to="/">Home</Link>
-          <Link to="/today">Today's Weather</Link>
-          <Link to="/demand">Check Demand</Link>
-          <Link to="/weekly">Weekly Forecast</Link>
-        </nav>
+        
         <Routes>
           <Route path="/" element={<WeatherHome />} />
           <Route path="/today" element={<TodayWeather />} />

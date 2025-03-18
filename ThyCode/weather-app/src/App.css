@@ -68,6 +68,16 @@ body {
   margin-bottom: 10px;
 }
 
+.separator {
+  background: #5a5f67; /* Grayish blue */
+  border-radius: 15px;
+  padding: 20px;
+  margin: 20px auto;
+  width: 90%;
+  max-width: 400px;
+  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.3);
+}
+
 .weather-info {
   display: flex;
   align-items: center;
@@ -90,15 +100,41 @@ body {
 .hourly-forecast {
   display: flex;
   justify-content: space-around;
-  margin: 10px 0;
+  align-items: center;
+  width: 100%;
+  max-width: 400px;
+  overflow-x: auto; /* Enables horizontal scrolling */
+  padding: 10px;
+  white-space: nowrap; /* Prevents text from wrapping */
+  gap: 15px;
+
+  border-radius: 10px;
+  min-height: 80px; /* Ensures space for hourly forecast */
 }
+
 
 .hour {
   display: flex;
   flex-direction: column;
   align-items: center;
-  font-size: 12px;
+  min-width: 80px; /* Ensures spacing */
+  text-align: center;
+  background: rgba(255, 255, 255, 0.1); /* Light transparent background */
+  border-radius: 8px;
+  padding: 5px;
 }
+
+.hour p {
+  margin: 5px 0;
+  font-size: 14px;
+}
+
+.hour img {
+  width: 40px;
+  height: 40px;
+}
+
+
 
 .buttons {
   display: flex;
@@ -118,13 +154,51 @@ body {
   background: #2c3440;
   padding: 10px;
   border-radius: 10px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
 }
 
 .day {
   display: flex;
   justify-content: space-between;
-  padding: 5px 10px;
+  align-items: center;
+  padding: 10px 15px;
+  background: #3b4455;
+  border-radius: 8px;
 }
+
+.day p {
+  flex: 1;
+  text-align: left;
+  font-weight: bold;
+}
+
+.day img {
+  width: 40px;
+  height: 40px;
+  margin: 0 auto; /* Center the icon */
+}
+
+.day .precipitation {
+  font-size: 14px;
+  color: #a8c7fa; /* Light blue for rain effect */
+  text-align: right;
+}
+
+.day span {
+  flex: 1;
+  text-align: right;
+  font-size: 16px;
+  font-weight: bold;
+}
+
+.precipitation {
+  font-size: 14px;
+  color: #a8c7fa; /* Light blue for rain effect */
+  text-align: right;
+}
+
 
 .more-button {
   display: block;
