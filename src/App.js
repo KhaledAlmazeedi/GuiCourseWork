@@ -1,25 +1,35 @@
-import logo from './logo.svg';
-import './App.css';
+import React, { useState } from 'react';
+import Weather from './WeatherHome'; // Your existing Weather component
+import TodaysWeather from './TodaysWeather'; // Your new TodaysWeather component
+import './App.css'; // Ensure you have this file for styling
 
-function App() {
+const App = () => {
+  const [city, setCity] = useState('Mile End'); // Default city
+  const [showTodaysWeather, setShowTodaysWeather] = useState(false); // State to toggle components
+
+  // Function to handle city change
+  const handleCityChange = (newCity) => {
+    setCity(newCity);
+  };
+
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <h1>Weather App</h1>
+      {showTodaysWeather ? (
+        <TodaysWeather
+          city={city}
+          onShowWeatherHome={() => setShowTodaysWeather(false)} // Switch back to Weather component
+          onCityChange={handleCityChange} // Pass city change handler
+        />
+      ) : (
+        <Weather
+          city={city}
+          onShowTodaysWeather={() => setShowTodaysWeather(true)} // Switch to TodaysWeather component
+          onCityChange={handleCityChange} // Pass city change handler
+        />
+      )}
     </div>
   );
-}
+};
 
 export default App;
