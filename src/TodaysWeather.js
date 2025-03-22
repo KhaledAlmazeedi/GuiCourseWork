@@ -26,7 +26,7 @@ const TodaysWeather = ({ city, onShowWeatherHome, onCityChange }) => {
     } catch (err) {
       setError('City not found. Please try again.');
       setWeatherData(null);
-      setCity(''); // Clear the input field
+      onCityChange(''); // Clear the input field
     } finally {
       setLoading(false);
     }
@@ -34,7 +34,9 @@ const TodaysWeather = ({ city, onShowWeatherHome, onCityChange }) => {
 
   // Fetch weather data for the current city on component mount
   useEffect(() => {
-    fetchWeatherData(city);
+    if (city) {
+      fetchWeatherData(city);
+    }
   }, [city]);
 
   // Handle search form submission
@@ -71,7 +73,6 @@ const TodaysWeather = ({ city, onShowWeatherHome, onCityChange }) => {
               placeholder="Enter city name"
               value={city}
               onChange={(e) => {
-                setCity(e.target.value);
                 onCityChange(e.target.value); // Update city in App.js
               }}
             />

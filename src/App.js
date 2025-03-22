@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
-import Weather from './WeatherHome'; // Your existing Weather component
-import TodaysWeather from './TodaysWeather'; // Your new TodaysWeather component
+import WeatherHome from './WeatherHome'; // Your WeatherHome component
+import TodaysWeather from './TodaysWeather'; // The TodaysWeather component
 import './App.css'; // Ensure you have this file for styling
 
 const App = () => {
@@ -18,11 +18,11 @@ const App = () => {
       {showTodaysWeather ? (
         <TodaysWeather
           city={city}
-          onShowWeatherHome={() => setShowTodaysWeather(false)} // Switch back to Weather component
+          onShowWeatherHome={() => setShowTodaysWeather(false)} // Switch back to WeatherHome component
           onCityChange={handleCityChange} // Pass city change handler
         />
       ) : (
-        <Weather
+        <WeatherHome
           city={city}
           onShowTodaysWeather={() => setShowTodaysWeather(true)} // Switch to TodaysWeather component
           onCityChange={handleCityChange} // Pass city change handler

@@ -2,7 +2,7 @@ import React, { useState, useEffect, useCallback } from 'react';
 import axios from 'axios';
 import './Weather.css'; // Import the CSS file
 
-const Weather = ({ city, onShowTodaysWeather }) => {
+const WeatherHome = ({ city, onShowTodaysWeather, onCityChange }) => {
   const [weatherData, setWeatherData] = useState(null);
   const [forecastData, setForecastData] = useState([]);
   const [hourlyData, setHourlyData] = useState([]);
@@ -168,4 +168,4 @@ const Weather = ({ city, onShowTodaysWeather }) => {
   );
 };
 
-export default Weather;
+export default WeatherHome;
