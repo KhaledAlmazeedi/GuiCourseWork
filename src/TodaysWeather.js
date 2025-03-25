@@ -6,9 +6,38 @@ const TodaysWeather = ({ city, onShowWeatherHome, onCityChange }) => {
   const [weatherData, setWeatherData] = useState(null);
   const [error, setError] = useState('');
   const [loading, setLoading] = useState(false);
+  const [suggestions, setSuggestions] = useState([]);
+  const [showSuggestions, setShowSuggestions] = useState(false);
+
 
   const API_KEY = '197f3dd796a4a34d3134600111570b71'; // Your OpenWeather API key
   const BASE_URL = 'https://api.openweathermap.org/data/2.5/weather';
+
+  const fetchCitySuggestions = async (query) => {
+    if (!query) {
+      setSuggestions([]);
+      return;
+    }
+  
+    try {
+      const response = await axios.get('http://api.openweathermap.org/geo/1.0/direct', {
+        params: {
+          q: query,
+          limit: 5,
+          appid: API_KEY,
+        },
+      });
+  
+      setSuggestions(response.data);
+      setShowSuggestions(true);
+    } catch (err) {
+      console.error('Error fetching city suggestions:', err);
+      setSuggestions([]);
+      setShowSuggestions(false);
+    }
+  };
+  
+
 
   // Fetch weather data for the current city
   const fetchWeatherData = async (cityName) => {
@@ -23,31 +52,36 @@ const TodaysWeather = ({ city, onShowWeatherHome, onCityChange }) => {
       });
       setWeatherData(response.data);
       setError('');
-    } catch (err) {
-      setError('City not found. Please try again.');
-      setWeatherData(null);
-      onCityChange(''); // Clear the input field
-    } finally {
+    } 
+    //   catch (err) {
+    //   setError('City not found. Please try again.');
+    //   setWeatherData(null);
+    //   onCityChange(''); // Clear the input field
+    // } 
+
+      finally {
       setLoading(false);
     }
   };
 
   // Fetch weather data for the current city on component mount
-  useEffect(() => {
-    if (city) {
-      fetchWeatherData(city);
-    }
-  }, [city]);
+  // useEffect(() => {
+  //   if (city) {
+  //     fetchWeatherData(city);
+  //   }
+  // }, [city]);
 
   // Handle search form submission
   const handleSearch = (e) => {
     e.preventDefault();
-    if (city.trim()) {
-      fetchWeatherData(city);
-    } else {
+    if (!city.trim()) {
       setError('Please enter a city name.');
+      return;
     }
+    console.log("Fetching weather for:", city);
+    fetchWeatherData(city.trim());
   };
+  
 
   // Dynamic road closure message
   const getRoadClosureMessage = (weather) => {
@@ -73,11 +107,32 @@ const TodaysWeather = ({ city, onShowWeatherHome, onCityChange }) => {
               placeholder="Enter city name"
               value={city}
               onChange={(e) => {
-                onCityChange(e.target.value); // Update city in App.js
+                const value = e.target.value;
+                onCityChange(value);
+                fetchCitySuggestions(value);
               }}
+              
             />
             <button type="submit">Search</button>
           </form>
+          {showSuggestions && suggestions.length > 0 && (
+          <ul className="suggestions-dropdown">
+            {suggestions.map((cityObj, index) => (
+              <li
+                key={index}
+                onClick={() => {
+                 
+                  onCityChange(cityObj.name);  // Optional: use cityFullName
+                  fetchWeatherData(cityObj.name);
+                  setShowSuggestions(false);
+                }}
+              >
+                {cityObj.name}{cityObj.state ? `, ${cityObj.state}` : ''}, {cityObj.country}
+              </li>
+            ))}
+          </ul>
+        )}
+
 
           {loading && <p className="loading">Loading...</p>}
           {error && <p className="error">{error}</p>}
@@ -100,6 +155,8 @@ const TodaysWeather = ({ city, onShowWeatherHome, onCityChange }) => {
             </div>
           )}
         </div>
+
+
 
         {/* Bottom Section */}
         {weatherData && (

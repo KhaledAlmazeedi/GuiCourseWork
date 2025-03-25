@@ -2,12 +2,14 @@ import React, { useState, useEffect, useCallback } from 'react';
 import axios from 'axios';
 import './Weather.css'; // Import the CSS file
 
-const WeatherHome = ({ city, onShowTodaysWeather, onCityChange }) => {
+const WeatherHome = ({ city, onShowTodaysWeather, onCityChange, onShowCheckDemand,onShowMore}) => {
   const [weatherData, setWeatherData] = useState(null);
   const [forecastData, setForecastData] = useState([]);
   const [hourlyData, setHourlyData] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
+  const [showMore, setShowMore] = useState(false);
+
 
   const apiKey = '197f3dd796a4a34d3134600111570b71'; // Your API key
 
@@ -65,8 +67,11 @@ const WeatherHome = ({ city, onShowTodaysWeather, onCityChange }) => {
   }, [fetchCurrentWeather, fetchForecast]);
 
   const handleCheckDemand = () => {
-    alert('Check Demand button clicked!');
+    if (onShowCheckDemand) {
+      onShowCheckDemand(); // Switch to demand view
+    }
   };
+  
 
   const handleTodayWeather = () => {
     if (onShowTodaysWeather) {
@@ -160,7 +165,7 @@ const WeatherHome = ({ city, onShowTodaysWeather, onCityChange }) => {
                 </div>
               ))}
             </div>
-            <button className="more-button">More</button>
+            <button className="more-button" onClick={onShowMore}>More</button>
           </div>
         </div>
       </div>

@@ -42,6 +42,8 @@ body {
 .search-bar {
   display: flex;
   margin-bottom: 12px;
+  position: relative;
+ 
 }
 
 .search-bar input {
@@ -181,4 +183,29 @@ body {
   text-align: center;
   font-size: 16px;
   color: #FFFFFF;
+}
+
+.suggestions-dropdown {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  border: 1px solid #ccc;
+  max-height: 150px;
+  overflow-y: auto;
+  position: absolute;
+  background: white;
+  width: 100%;
+  z-index: 1000;
+  border-radius: 5px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.suggestions-dropdown li {
+  padding: 8px;
+  cursor: pointer;
+  color: #000000;
+}
+
+.suggestions-dropdown li:hover {
+  background-color: #eee;
 }
