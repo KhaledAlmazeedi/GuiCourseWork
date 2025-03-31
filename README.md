@@ -1,3 +1,64 @@
+
+# Weather App
+
+## Overview
+This is a React-based weather application that displays current weather, today's details, weekly forecasts, and demand mapping using a visually styled UI. Users can search by city, view real-time conditions, and navigate between feature-specific pages like Today's Weather and Check Demand.
+
+## Prerequisites
+Before running the app, ensure the following are installed:
+
+- Node.js (v14 or higher)
+- npm (Node Package Manager)
+- Git (optional, for cloning the repo)
+
+## Setup & Installation
+
+1. Clone the repository or download the project files.
+2. Open a terminal and navigate to the project directory.
+3. Install dependencies:
+
+   ```bash
+   npm install
+   ```
+
+4. Start the application:
+
+   ```bash
+   npm start
+   ```
+
+5. The app should open automatically in your browser at `http://localhost:3000`.
+
+## API Key Configuration
+
+This app uses the OpenWeatherMap API. To make it work:
+
+1. Go to [OpenWeatherMap](https://openweathermap.org/api) and create a free account.
+2. Get your API key from your dashboard.
+3. Replace the API key placeholders (e.g., `'197f3dd796a4a34d3134600111570b71'`) in the code with your own key.
+
+## Notes
+
+- The app is optimized for a mobile view (375x667px).
+- A static map image is used for the Check Demand page (no external map API required).
+- You can customize city suggestions, map images, and weather icons as needed.
+- below you can find details about the packages inatalled and the way of installing them
+- the packages used are the default nodejs, npm and the api used is from open weather
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 # Getting Started with Create React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).

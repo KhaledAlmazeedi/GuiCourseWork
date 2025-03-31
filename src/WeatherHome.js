@@ -33,9 +33,9 @@ const WeatherHome = ({ city, onShowTodaysWeather, onCityChange, onShowCheckDeman
       const response = await axios.get(
         `https://api.openweathermap.org/data/2.5/forecast?q=${city}&units=metric&appid=${apiKey}`
       );
-      // Extract the next 5 hours of hourly data
-      const next5Hours = response.data.list.slice(0, 5);
-      setHourlyData(next5Hours);
+      // Extract the next 4 hours of hourly data
+      const next4Hours = response.data.list.slice(0, 4);
+      setHourlyData(next4Hours);
 
       // Group forecast data by day for the weekly forecast
       const groupedForecast = groupForecastByDay(response.data.list);
@@ -111,7 +111,7 @@ const WeatherHome = ({ city, onShowTodaysWeather, onCityChange, onShowCheckDeman
 
           {/* Hourly Weather for the Next 5 Hours */}
           <div className="hourly-weather">
-            <h3>Next 5 Hours</h3>
+            <h3>Next 4 Hours</h3>
             <div className="hourly-forecast">
               {hourlyData.map((hour, index) => (
                 <div className="hourly-item" key={index}>
