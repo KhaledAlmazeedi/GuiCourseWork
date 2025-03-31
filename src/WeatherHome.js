@@ -1,33 +1,33 @@
 import React, { useState, useEffect, useCallback } from 'react';
 import axios from 'axios';
-import './Weather.css'; // Import the CSS file
+import './Weather.css'; // Import the CSS file for styling
 
-const WeatherHome = ({ city, onShowTodaysWeather, onCityChange, onShowCheckDemand,onShowMore}) => {
-  const [weatherData, setWeatherData] = useState(null);
-  const [forecastData, setForecastData] = useState([]);
-  const [hourlyData, setHourlyData] = useState([]);
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState(null);
-  const [showMore, setShowMore] = useState(false);
+const WeatherHome = ({ city, onShowTodaysWeather, onCityChange, onShowCheckDemand, onShowMore }) => {
+  // State variables to manage weather data, loading, and errors
+  const [weatherData, setWeatherData] = useState(null); // Current weather data
+  const [forecastData, setForecastData] = useState([]); // Weekly forecast data
+  const [hourlyData, setHourlyData] = useState([]); // Hourly forecast data for the next 5 hours
+  const [loading, setLoading] = useState(true); // Loading state
+  const [error, setError] = useState(null); // Error state
+  const [showMore, setShowMore] = useState(false); // State for "More" button functionality
 
+  const apiKey = '197f3dd796a4a34d3134600111570b71'; // OpenWeatherMap API key
 
-  const apiKey = '197f3dd796a4a34d3134600111570b71'; // Your API key
-
-  // Fetch current weather
+  // Fetch current weather data from the API
   const fetchCurrentWeather = useCallback(async () => {
     try {
       const response = await axios.get(
         `https://api.openweathermap.org/data/2.5/weather?q=${city}&units=metric&appid=${apiKey}`
       );
-      setWeatherData(response.data);
-      setError(null);
+      setWeatherData(response.data); // Update state with current weather data
+      setError(null); // Clear any previous errors
     } catch (error) {
       console.error(error);
       setError('Failed to fetch current weather data. Please check the city name or try again later.');
     }
   }, [city, apiKey]);
 
-  // Fetch 5-day/3-hour forecast
+  // Fetch 5-day/3-hour forecast data from the API
   const fetchForecast = useCallback(async () => {
     try {
       const response = await axios.get(
@@ -35,17 +35,17 @@ const WeatherHome = ({ city, onShowTodaysWeather, onCityChange, onShowCheckDeman
       );
       // Extract the next 4 hours of hourly data
       const next4Hours = response.data.list.slice(0, 4);
-      setHourlyData(next4Hours);
+      setHourlyData(next4Hours); // Update state with hourly forecast data
 
       // Group forecast data by day for the weekly forecast
       const groupedForecast = groupForecastByDay(response.data.list);
-      setForecastData(groupedForecast);
-      setError(null);
+      setForecastData(groupedForecast); // Update state with weekly forecast data
+      setError(null); // Clear any previous errors
     } catch (error) {
       console.error(error);
       setError('Failed to fetch forecast data. Please check the city name or try again later.');
     } finally {
-      setLoading(false);
+      setLoading(false); // Stop the loading spinner
     }
   }, [city, apiKey]);
 
@@ -53,36 +53,40 @@ const WeatherHome = ({ city, onShowTodaysWeather, onCityChange, onShowCheckDeman
   const groupForecastByDay = (forecastList) => {
     const grouped = {};
     forecastList.forEach((item) => {
-      const date = new Date(item.dt * 1000).toLocaleDateString('en-US', { weekday: 'long' });
+      const date = new Date(item.dt * 1000).toLocaleDateString('en-US', { weekday: 'long' }); // Convert timestamp to weekday
       if (!grouped[date]) {
-        grouped[date] = item;
+        grouped[date] = item; // Group by day
       }
     });
     return Object.values(grouped).slice(0, 7); // Return only 7 days (Monday to Sunday)
   };
 
+  // Fetch weather data when the component mounts or when the city changes
   useEffect(() => {
     fetchCurrentWeather();
     fetchForecast();
   }, [fetchCurrentWeather, fetchForecast]);
 
+  // Handle "Check Demand" button click
   const handleCheckDemand = () => {
     if (onShowCheckDemand) {
-      onShowCheckDemand(); // Switch to demand view
+      onShowCheckDemand(); // Trigger the callback to switch to the demand view
     }
   };
-  
 
+  // Handle "Today's Weather" button click
   const handleTodayWeather = () => {
     if (onShowTodaysWeather) {
-      onShowTodaysWeather(); // Call the callback to show TodaysWeather component
+      onShowTodaysWeather(); // Trigger the callback to show the Today's Weather component
     }
   };
 
+  // Show loading spinner while data is being fetched
   if (loading) {
     return <div>Loading...</div>;
   }
 
+  // Show error message if there is an error
   if (error) {
     return <div>Error: {error}</div>;
   }
@@ -90,8 +94,9 @@ const WeatherHome = ({ city, onShowTodaysWeather, onCityChange, onShowCheckDeman
   return (
     <div className="app-wrapper">
       <div className="weather-container">
-        {/* Top Section */}
+        {/* Top Section: Current Weather and Hourly Forecast */}
         <div className="top-section">
+          {/* Current Weather Information */}
           <div className="weather-info">
             <h2 className="mile-end">{weatherData.name}</h2>
             <p className="feels-like">Feels like {Math.round(weatherData.main.feels_like)}°C</p>
@@ -135,14 +140,14 @@ const WeatherHome = ({ city, onShowTodaysWeather, onCityChange, onShowCheckDeman
             </div>
           </div>
 
-          {/* Buttons */}
+          {/* Buttons for Navigation */}
           <div className="buttons">
             <button className="check-demand-button" onClick={handleCheckDemand}>Check Demand</button>
             <button className="today-weather-button" onClick={handleTodayWeather}>Today's Weather</button>
           </div>
         </div>
 
-        {/* Bottom Section */}
+        {/* Bottom Section: Weekly Forecast */}
         <div className="bottom-section">
           <div className="weekly-forecast">
             <h3>Weekly Forecast</h3>
@@ -165,6 +170,7 @@ const WeatherHome = ({ city, onShowTodaysWeather, onCityChange, onShowCheckDeman
                 </div>
               ))}
             </div>
+            {/* "More" Button */}
             <button className="more-button" onClick={onShowMore}>More</button>
           </div>
         </div>
