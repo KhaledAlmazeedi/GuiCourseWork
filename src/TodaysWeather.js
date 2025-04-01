@@ -3,24 +3,22 @@ import axios from 'axios';
 import './TodaysWeather.css'; // Import the CSS file
 
 const TodaysWeather = ({ city, onShowWeatherHome, onCityChange }) => {
-  // State variables to manage weather data, errors, loading state, and city suggestions
   const [weatherData, setWeatherData] = useState(null);
   const [error, setError] = useState('');
   const [loading, setLoading] = useState(false);
   const [suggestions, setSuggestions] = useState([]);
   const [showSuggestions, setShowSuggestions] = useState(false);
 
-  // OpenWeather API key and base URL
-  const API_KEY = '197f3dd796a4a34d3134600111570b71';
+
+  const API_KEY = '197f3dd796a4a34d3134600111570b71'; // Your OpenWeather API key
   const BASE_URL = 'https://api.openweathermap.org/data/2.5/weather';
 
-  // Fetch city suggestions based on user input
   const fetchCitySuggestions = async (query) => {
     if (!query) {
       setSuggestions([]);
       return;
     }
-
+  
     try {
       const response = await axios.get('http://api.openweathermap.org/geo/1.0/direct', {
         params: {
@@ -29,7 +27,7 @@ const TodaysWeather = ({ city, onShowWeatherHome, onCityChange }) => {
           appid: API_KEY,
         },
       });
-
+  
       setSuggestions(response.data);
       setShowSuggestions(true);
     } catch (err) {
@@ -38,37 +36,54 @@ const TodaysWeather = ({ city, onShowWeatherHome, onCityChange }) => {
       setShowSuggestions(false);
     }
   };
+  
 
-  // Fetch weather data for the specified city
+
+  // Fetch weather data for the current city
   const fetchWeatherData = async (cityName) => {
-    setLoading(true); // Show loading indicator
+    setLoading(true);
     try {
       const response = await axios.get(BASE_URL, {
         params: {
           q: cityName,
           appid: API_KEY,
-          units: 'metric', // Use metric units (Celsius)
+          units: 'metric', // Use 'imperial' for Fahrenheit
         },
       });
-      setWeatherData(response.data); // Update weather data
-      setError(''); // Clear any previous errors
-    } finally {
-      setLoading(false); // Hide loading indicator
+      setWeatherData(response.data);
+      setError('');
+    } 
+    //   catch (err) {
+    //   setError('City not found. Please try again.');
+    //   setWeatherData(null);
+    //   onCityChange(''); // Clear the input field
+    // } 
+
+      finally {
+      setLoading(false);
     }
   };
+
+  // Fetch weather data for the current city on component mount
+  // useEffect(() => {
+  //   if (city) {
+  //     fetchWeatherData(city);
+  //   }
+  // }, [city]);
 
   // Handle search form submission
   const handleSearch = (e) => {
-    e.preventDefault(); // Prevent default form submission
+    e.preventDefault();
     if (!city.trim()) {
-      setError('Please enter a city name.'); // Show error if input is empty
+      setError('Please enter a city name.');
       return;
     }
     console.log("Fetching weather for:", city);
-    fetchWeatherData(city.trim()); // Fetch weather data for the entered city
+    fetchWeatherData(city.trim());
   };
+  
 
-  // Generate a dynamic road closure message based on weather conditions
+  // Dynamic road closure message
   const getRoadClosureMessage = (weather) => {
     if (weather.includes('rain')) {
       return 'Potential road closures due to rain';
@@ -84,7 +99,7 @@ const TodaysWeather = ({ city, onShowWeatherHome, onCityChange }) => {
   return (
     <div className="app-wrapper">
       <div className="weather-container">
-        {/* Top Section: Search bar and weather information */}
+        {/* Top Section */}
         <div className="top-section">
           <form onSubmit={handleSearch} className="search-bar">
             <input
@@ -93,34 +108,35 @@ const TodaysWeather = ({ city, onShowWeatherHome, onCityChange }) => {
               value={city}
               onChange={(e) => {
                 const value = e.target.value;
-                onCityChange(value); // Update city input
-                fetchCitySuggestions(value); // Fetch city suggestions
+                onCityChange(value);
+                fetchCitySuggestions(value);
               }}
+              
             />
             <button type="submit">Search</button>
           </form>
-
-          {/* Display city suggestions dropdown */}
           {showSuggestions && suggestions.length > 0 && (
-            <ul className="suggestions-dropdown">
-              {suggestions.map((cityObj, index) => (
-                <li
-                  key={index}
-                  onClick={() => {
-                    onCityChange(cityObj.name); // Update city input with selected suggestion
-                    fetchWeatherData(cityObj.name); // Fetch weather data for selected city
-                    setShowSuggestions(false); // Hide suggestions dropdown
-                  }}
-                >
-                  {cityObj.name}{cityObj.state ? `, ${cityObj.state}` : ''}, {cityObj.country}
-                </li>
-              ))}
-            </ul>
-          )}
+          <ul className="suggestions-dropdown">
+            {suggestions.map((cityObj, index) => (
+              <li
+                key={index}
+                onClick={() => {
+                 
+                  onCityChange(cityObj.name);  // Optional: use cityFullName
+                  fetchWeatherData(cityObj.name);
+                  setShowSuggestions(false);
+                }}
+              >
+                {cityObj.name}{cityObj.state ? `, ${cityObj.state}` : ''}, {cityObj.country}
+              </li>
+            ))}
+          </ul>
+        )}
 
-          {/* Display loading, error, or weather information */}
+
           {loading && <p className="loading">Loading...</p>}
           {error && <p className="error">{error}</p>}
+
           {weatherData && (
             <div className="weather-info">
               <h2 className="mile-end">{weatherData.name}</h2>
@@ -140,7 +156,9 @@ const TodaysWeather = ({ city, onShowWeatherHome, onCityChange }) => {
           )}
         </div>
 
-        {/* Bottom Section: Additional weather details */}
+
+
+        {/* Bottom Section */}
         {weatherData && (
           <div className="bottom-section">
             <div className="weather-details">
@@ -172,7 +190,7 @@ const TodaysWeather = ({ city, onShowWeatherHome, onCityChange }) => {
           </div>
         )}
 
-        {/* Navigation Button: Go back to Weather Home */}
+        {/* Navigation Button */}
         <div className="navigation-button">
           <button onClick={onShowWeatherHome}>Go to Weather Home</button>
         </div>

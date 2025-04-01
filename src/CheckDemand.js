@@ -1,26 +1,42 @@
 import React from 'react';
-import './CheckDemand.css'; // Importing the CSS file for styling
-import londonMap from './Londonmap.png'; // Importing the static map image
+import './CheckDemand.css';
+import londonMap from './Londonmap.png';
 
-// Functional component to display demand information
-const CheckDemand = ({onBack, city}) => {
+const CheckDemand = ({ onBack, city }) => {
   return (
     <div className="demand-page">
-      {/* Container for the map */}
       <div className="map-container">
-        <img src={londonMap} alt="London Map" className="map-image" />
+        <img src={londonMap} alt={`${city} Map`} className="map-image" />
+        <div className="map-overlay">{city} Demand Map</div>
       </div>
 
-      {/* Information panel displaying demand details */}
       <div className="info-panel">
-        <p><strong>Area with highest demand:</strong> Stratford</p> {/* Displaying the area with the highest demand */}
-        <p><strong>Current Waiting Time:</strong> 5 mins</p> {/* Displaying the current waiting time */}
-        <p><strong>Weather Alert:</strong> Heavy rain expected</p> {/* Displaying a weather alert */}
-        <p><strong>Surge Pricing Active:</strong> Earn 2x in Stratford</p> {/* Displaying surge pricing information */}
-        <button className="back-button" onClick={onBack}>Back</button> {/* Back button to navigate to the previous page */}
+        <h3>Demand Information</h3>
+        
+        <div className="info-item">
+          <span className="info-label">Highest Demand Area:</span>
+          <span className="info-value">Stratford</span>
+        </div>
+        
+        <div className="info-item">
+          <span className="info-label">Current Waiting Time:</span>
+          <span className="info-value">5 mins</span>
+        </div>
+        
+        <div className="info-item">
+          <span className="info-label">Weather Alert:</span>
+          <span className="info-value alert">Heavy rain expected</span>
+        </div>
+        
+        <div className="info-item highlight">
+          <span className="info-label">Surge Pricing:</span>
+          <span className="info-value">2x in Stratford</span>
+        </div>
+
+        <button className="back-button" onClick={onBack}>Back to Weather</button>
       </div>
     </div>
   );
 };
 
-export default CheckDemand; // Exporting the component for use in other parts of the application
+export default CheckDemand;
