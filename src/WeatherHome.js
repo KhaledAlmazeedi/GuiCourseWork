@@ -9,6 +9,14 @@ const WeatherHome = ({ city, onShowTodaysWeather, onCityChange, onShowCheckDeman
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
   const [showMore, setShowMore] = useState(false);
+  const [suggestions, setSuggestions] = useState([]);
+  const [showSuggestions, setShowSuggestions] = useState(false);
+  const [searchLoading, setSearchLoading] = useState(false);
+  const [searchInput, setSearchInput] = useState('');
+
+
+
+
 
   const apiKey = '197f3dd796a4a34d3134600111570b71';
 
@@ -43,6 +51,38 @@ const WeatherHome = ({ city, onShowTodaysWeather, onCityChange, onShowCheckDeman
       setLoading(false);
     }
   }, [city, apiKey]);
+
+  const fetchCitySuggestions = async (query) => {
+    if (!query || query.length < 3) {
+      
+      setSuggestions([]);
+      setShowSuggestions(false);
+      return;
+    }
+  
+    try {
+      const response = await axios.get('http://api.openweathermap.org/geo/1.0/direct', {
+        params: {
+          q: query,
+          limit: 5,
+          appid: apiKey,
+        },
+      });
+  
+      setSuggestions(response.data);
+      setShowSuggestions(true);
+    } catch (err) {
+      console.error('Error fetching city suggestions:', err);
+      setSuggestions([]);
+      setShowSuggestions(false);
+    }
+  };
+  
+
+
+
+
+
 
   const groupForecastByDay = (forecastList) => {
     const grouped = {};
@@ -84,6 +124,54 @@ const WeatherHome = ({ city, onShowTodaysWeather, onCityChange, onShowCheckDeman
     <div className="app-wrapper">
       <div className="weather-container">
         <div className="top-section">
+        <form
+          onSubmit={(e) => {
+            e.preventDefault();
+            if (!searchInput.trim()) return;
+            onCityChange(searchInput.trim());
+            fetchCurrentWeather();
+            fetchForecast();
+            setSearchInput('');
+            setShowSuggestions(false);
+          }}
+          className="search-bar"
+        >
+          <input
+            type="text"
+            placeholder="Enter city name"
+            value={searchInput}
+            onChange={(e) => {
+              const value = e.target.value;
+              setSearchInput(value);
+              fetchCitySuggestions(value);
+            }}
+          />
+          <button type="submit">Search</button>
+          {showSuggestions && suggestions.length > 0 && (
+          <ul className="suggestions-dropdown">
+            {suggestions.map((cityObj, index) => (
+              <li
+                key={index}
+                onClick={() => {
+                  const selectedCity = cityObj.name;
+                  onCityChange(selectedCity);
+                  fetchCurrentWeather();
+                  fetchForecast();
+                  setSearchInput('');
+                  setShowSuggestions(false);
+                }}
+              >
+                {cityObj.name}{cityObj.state ? `, ${cityObj.state}` : ''}, {cityObj.country}
+              </li>
+            ))}
+          </ul>
+        )}
+
+
+        </form>
+
+     
+
           <div className="weather-info">
             <h2 className="mile-end">{weatherData.name}</h2>
             <p className="feels-like">Feels like {Math.round(weatherData.main.feels_like)}°C</p>
@@ -100,7 +188,7 @@ const WeatherHome = ({ city, onShowTodaysWeather, onCityChange, onShowCheckDeman
           </div>
 
           <div className="hourly-weather">
-            <h3>Next 4 Hours</h3>
+            <h3>Next 12 Hours</h3>
             <div className="hourly-forecast">
               {hourlyData.map((hour, index) => (
                 <div className="hourly-item" key={index}>

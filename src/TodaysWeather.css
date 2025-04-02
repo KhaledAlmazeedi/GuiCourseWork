@@ -98,14 +98,6 @@ body {
   margin-bottom: 15px;
 }
 
-.weather-icon-container {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  width: 10%;
-
-  min-height: 10px;
-}
 
 .weather-icon {
   width: 100px;

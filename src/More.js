@@ -109,10 +109,11 @@ const More = ({ city, onBack }) => {
       <div className="forecast-list">
         {forecast.map((day, index) => (
           <div className="forecast-day" key={`${day.dt}-${index}`}>
-            <div className="day-header">
-              <span className="day-name">
-                {new Date(day.dt * 1000).toLocaleDateString('en-US', { weekday: 'short' })}
-              </span>
+          <div className="day-header">
+            <span className="day-name">
+              {new Date(day.dt * 1000).toLocaleDateString('en-US', { weekday: 'short' })}
+            </span>
+            <div className="icon-container">
               <img
                 src={`https://openweathermap.org/img/wn/${day.icon}@2x.png`}
                 alt={day.description}
@@ -122,16 +123,16 @@ const More = ({ city, onBack }) => {
                 }}
               />
             </div>
-            
-            <div className="day-temps">
-              <span className="max-temp">{day.maxTemp}°</span>
-              <span className="min-temp">{day.minTemp}°</span>
-            </div>
-            
-            <p className="day-description">
-              {day.description}
-            </p>
           </div>
+        
+          <div className="day-temps">
+            <span className="max-temp">{day.maxTemp}°</span>
+            <span className="min-temp">{day.minTemp}°</span>
+          </div>
+        
+          <p className="day-description">{day.description}</p>
+        </div>
+        
         ))}
       </div>
 

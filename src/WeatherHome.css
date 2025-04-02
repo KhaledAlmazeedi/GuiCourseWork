@@ -94,6 +94,20 @@ body {
 .current-icon {
   width: 60px;
   height: 60px;
+  background-color: 	#7664a3;
+  border-radius: 50%;
+  padding: 6px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 50px;
+  height: 50px;
+
+  /* Shadow */
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+
+  /* Glow */
+  filter: drop-shadow(0 0 8px 		rgba(101, 85, 143, 0.6));
 }
 
 .hourly-icon {
@@ -120,6 +134,8 @@ body {
 }
 
 .hourly-item {
+ 
+  
   text-align: center;
   min-width: 60px;
   background-color: #2C3A58;
@@ -229,4 +245,34 @@ body {
 
 .more-button:hover {
   background-color: #4C3D6B;
+}
+
+.suggestions-dropdown {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  width: 100%;
+  background-color: white;
+  color: black;
+  border-radius: 6px;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.2);
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  z-index: 1000;
+}
+
+.suggestions-dropdown li {
+  padding: 10px;
+  cursor: pointer;
+}
+
+.suggestions-dropdown li:hover {
+  background-color: #f0f0f0;
+}
+
+.search-bar {
+  display: flex;
+  position: relative;
+  margin-bottom: 12px;
 }
