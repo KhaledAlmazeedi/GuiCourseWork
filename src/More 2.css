@@ -1,0 +1,109 @@
+/* Reset and base styles */
+.more-container {
+    all: initial;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    display: block;
+    width: 360px;
+    height: 640px;
+    background-color: #1B263B;
+    padding: 20px;
+    box-sizing: border-box;
+  }
+  
+  /* Title */
+  .section-title {
+    color: white;
+    text-align: center;
+    font-size: 18px;
+    margin-bottom: 20px;
+    font-weight: 600;
+  }
+  
+  /* Forecast list */
+  .forecast-list {
+    height: calc(100% - 100px);
+    overflow-y: auto;
+    margin-bottom: 20px;
+  }
+  
+  .forecast-day {
+    background: white;
+    border-radius: 10px;
+    padding: 12px;
+    margin-bottom: 10px;
+  }
+  
+  .day-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 8px;
+  }
+  
+  .day-name {
+    font-weight: 500;
+    font-size: 15px;
+  }
+  
+  .day-icon {
+    width: 30px;
+    height: 30px;
+  }
+  
+  .day-temps {
+    display: flex;
+    gap: 10px;
+  }
+  
+  .max-temp {
+    font-weight: 600;
+    font-size: 16px;
+  }
+  
+  .min-temp {
+    color: #666;
+    font-size: 14px;
+  }
+  
+  .day-description {
+    font-size: 12px;
+    color: #444;
+    text-transform: capitalize;
+    margin-top: 5px;
+  }
+  
+  /* Buttons */
+  .back-button {
+    width: 100%;
+    padding: 12px;
+    background: #65558F;
+    color: white;
+    border: none;
+    border-radius: 20px;
+    font-weight: 500;
+    cursor: pointer;
+  }
+  
+  /* States */
+  .loading, .error {
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    font-size: 16px;
+  }
+  
+  .error {
+    color: #ff6b6b;
+  }
+  
+  /* Scrollbar */
+  .forecast-list::-webkit-scrollbar {
+    width: 5px;
+  }
+  
+  .forecast-list::-webkit-scrollbar-thumb {
+    background: #65558F;
+    border-radius: 5px;
+  }

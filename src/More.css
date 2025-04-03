@@ -1,5 +1,8 @@
-/* Reset and base styles */
+/* More.css */
+
+/* General Styles */
 .more-container {
+<<<<<<< Updated upstream
     all: initial;
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     display: block;
@@ -138,3 +141,72 @@
     border-radius: 5px;
   }
 
+=======
+  width: 375px;
+  height: 667px;
+  background-color: #1B263B;
+  border-radius: 20px;
+  box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
+  overflow: hidden;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  padding: 12px;
+  color: #FFFFFF;
+}
+
+.section-title {
+  font-size: 24px;
+  margin-bottom: 15px;
+  color: #FFFFFF;
+  text-align: center;
+}
+
+/* Forecast List */
+.forecast-list {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  overflow-y: auto;
+}
+
+.forecast-day {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: #FFFFFF;
+  color: #000000;
+  padding: 12px;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  font-size: 16px;
+}
+
+.day-name {
+  font-weight: bold;
+}
+
+.day-temps {
+  font-size: 16px;
+  font-weight: bold;
+}
+
+/* Buttons */
+.back-button {
+  margin-top: 15px;
+  padding: 12px 24px;
+  font-size: 14px;
+  background-color: #65558F;
+  border: none;
+  border-radius: 25px;
+  color: #FFFFFF;
+  font-weight: 500;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  text-align: center;
+}
+
+.back-button:hover {
+  background-color: #4C3D6B;
+}
+>>>>>>> Stashed changes
