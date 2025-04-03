@@ -2,211 +2,145 @@
 
 /* General Styles */
 .more-container {
-<<<<<<< Updated upstream
-    all: initial;
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    display: block;
-    width: 360px;
-    height: 640px;
-    background-color: #1B263B;
-    padding: 20px;
-    box-sizing: border-box;
-  }
-  
-  /* Title */
-  .section-title {
-    color: white;
-    text-align: center;
-    font-size: 18px;
-    margin-bottom: 20px;
-    font-weight: 600;
-  }
-  
-  /* Forecast list */
-  .forecast-list {
-    height: calc(100% - 100px);
-    overflow-y: auto;
-    margin-bottom: 20px;
-    display: flex;
-    flex-direction: column;
-    align-items: center; /* center the cards horizontally */
-    gap: 12px; /* spacing between forecast-day cards */
-  }
-  
-  .forecast-day {
-    background: white;
-    border-radius: 10px;
-    padding: 12px 16px;
-    width: 90%; /* use most of the container width */
-    max-width: 300px; /* optional, keeps cards from stretching too much */
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
-  }
-  
-  
-  .day-header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-bottom: 10px;
-  }
-  
-  .day-name {
-    font-weight: 500;
-    font-size: 15px;
-  }
-
-  .icon-container {
-    background-color: 	#7664a3;
-    border-radius: 50%;
-    padding: 6px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    width: 50px;
-    height: 50px;
-  
-    /* Shadow */
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
-  
-    /* Glow */
-    filter: drop-shadow(0 0 8px 		rgba(101, 85, 143, 0.6));
-  }
-  
-  
-  
-  .day-icon {
-    width: 40px;
-    height: 40px;
-  }
-  
-  
-  .day-temps {
-    display: flex;
-    gap: 10px;
-  }
-  
-  .max-temp {
-    font-weight: 600;
-    font-size: 16px;
-  }
-  
-  .min-temp {
-    color: #666;
-    font-size: 14px;
-  }
-  
-  .day-description {
-    font-size: 12px;
-    color: #444;
-    text-transform: capitalize;
-    margin-top: 10px;
-  }
-  
-  /* Buttons */
-  .back-button {
-    width: 100%;
-    padding: 12px;
-    background: #65558F;
-    color: white;
-    border: none;
-    border-radius: 20px;
-    font-weight: 500;
-    cursor: pointer;
-  }
-  
-  /* States */
-  .loading, .error {
-    height: 100%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    color: white;
-    font-size: 16px;
-  }
-  
-  .error {
-    color: #ff6b6b;
-  }
-  
-  /* Scrollbar */
-  .forecast-list::-webkit-scrollbar {
-    width: 5px;
-  }
-  
-  .forecast-list::-webkit-scrollbar-thumb {
-    background: #65558F;
-    border-radius: 5px;
-  }
-
-=======
-  width: 375px;
-  height: 667px;
+  all: initial;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  display: block;
+  width: 360px;
+  height: 640px;
   background-color: #1B263B;
-  border-radius: 20px;
-  box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
-  overflow: hidden;
-  position: relative;
-  display: flex;
-  flex-direction: column;
-  padding: 12px;
-  color: #FFFFFF;
+  padding: 20px;
+  box-sizing: border-box;
 }
 
+/* Title */
 .section-title {
-  font-size: 24px;
-  margin-bottom: 15px;
-  color: #FFFFFF;
+  color: white;
   text-align: center;
+  font-size: 18px;
+  margin-bottom: 20px;
+  font-weight: 600;
 }
 
-/* Forecast List */
+/* Forecast list */
 .forecast-list {
+  height: calc(100% - 100px);
+  overflow-y: auto;
+  margin-bottom: 20px;
   display: flex;
   flex-direction: column;
-  gap: 10px;
-  overflow-y: auto;
+  align-items: center;
+  /* center the cards horizontally */
+  gap: 12px;
+  /* spacing between forecast-day cards */
 }
 
 .forecast-day {
+  background: white;
+  border-radius: 10px;
+  padding: 12px 16px;
+  width: 90%;
+  /* use most of the container width */
+  max-width: 300px;
+  /* optional, keeps cards from stretching too much */
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+}
+
+
+.day-header {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  background-color: #FFFFFF;
-  color: #000000;
-  padding: 12px;
-  border-radius: 8px;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-  font-size: 16px;
+  margin-bottom: 10px;
 }
 
 .day-name {
-  font-weight: bold;
+  font-weight: 500;
+  font-size: 15px;
 }
 
+.icon-container {
+  background-color: #7664a3;
+  border-radius: 50%;
+  padding: 6px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 50px;
+  height: 50px;
+
+  /* Shadow */
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+
+  /* Glow */
+  filter: drop-shadow(0 0 8px rgba(101, 85, 143, 0.6));
+}
+
+
+
+.day-icon {
+  width: 40px;
+  height: 40px;
+}
+
+
 .day-temps {
+  display: flex;
+  gap: 10px;
+}
+
+.max-temp {
+  font-weight: 600;
   font-size: 16px;
-  font-weight: bold;
+}
+
+.min-temp {
+  color: #666;
+  font-size: 14px;
+}
+
+.day-description {
+  font-size: 12px;
+  color: #444;
+  text-transform: capitalize;
+  margin-top: 10px;
 }
 
 /* Buttons */
 .back-button {
-  margin-top: 15px;
-  padding: 12px 24px;
-  font-size: 14px;
-  background-color: #65558F;
+  width: 100%;
+  padding: 12px;
+  background: #65558F;
+  color: white;
   border: none;
-  border-radius: 25px;
-  color: #FFFFFF;
+  border-radius: 20px;
   font-weight: 500;
   cursor: pointer;
-  transition: background-color 0.3s ease;
-  text-align: center;
 }
 
-.back-button:hover {
-  background-color: #4C3D6B;
+/* States */
+.loading,
+.error {
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  font-size: 16px;
 }
->>>>>>> Stashed changes
+
+.error {
+  color: #ff6b6b;
+}
+
+/* Scrollbar */
+.forecast-list::-webkit-scrollbar {
+  width: 5px;
+}
+
+.forecast-list::-webkit-scrollbar-thumb {
+  background: #65558F;
+  border-radius: 5px;
+}
